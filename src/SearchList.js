@@ -30,7 +30,7 @@ import HighlightableText from './components/HighlightableText'
 
 export default class SearchList extends Component {
   static propTypes = {
-    data: PropTypes.array.isRequired,
+    data: PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.object.isRequired]),
     // use `renderRow` to get much more freedom
     rowHeight: PropTypes.number.isRequired,
 
@@ -197,7 +197,7 @@ export default class SearchList extends Component {
       return (<View />)
     } else {
       return (
-        <View style={[styles.sectionHeader, { height: this.props.sectionHeaderHeight }]}>
+        <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>{sectionID}</Text>
         </View>
       )
@@ -439,13 +439,11 @@ export default class SearchList extends Component {
             keyboardDismissMode='on-drag'
             keyboardShouldPersistTaps='always'
             showsVerticalScrollIndicator
-
             renderRow={this.props.renderRow || this._renderRow.bind(this)}
             renderSeparator={this.props.renderSeparator || this._renderSeparator.bind(this)}
             renderSectionHeader={this.props.renderSectionHeader || this._renderSectionHeader.bind(this)}
             renderFooter={this.props.renderFooter || this._renderFooter.bind(this)}
             renderHeader={this.props.renderHeader || this._renderHeader.bind(this)}
-
             enableEmptySections />
         )
       } else {
@@ -557,15 +555,16 @@ const styles = StyleSheet.create({
     opacity: 0.0
   },
   sectionHeader: {
-    flex: 1,
     height: Theme.size.sectionHeaderHeight,
     justifyContent: 'center',
-    paddingLeft: 25,
-    backgroundColor: '#efefef'
+    paddingLeft: 20,
+    backgroundColor: '#efefef',
   },
   sectionTitle: {
+    marginTop: 3,
     color: '#979797',
-    fontSize: 14
+    fontSize: 14,
+    // backgroundColor: 'red',
   },
   separator2: {
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
