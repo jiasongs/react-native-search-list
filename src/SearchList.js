@@ -38,6 +38,8 @@ export default class SearchList extends Component {
 
     sectionHeaderHeight: PropTypes.number,
 
+    separatorHeight: PropTypes.number,
+
     searchListBackgroundColor: PropTypes.string,
 
     toolbarBackgroundColor: PropTypes.string,
@@ -89,6 +91,7 @@ export default class SearchList extends Component {
     sectionIndexTextColor: '#171a23',
     searchListBackgroundColor: Theme.color.primaryDark,
     toolbarBackgroundColor: Theme.color.primaryDark,
+    separatorHeight: Theme.size.separatorHeight
   }
 
   constructor(props) {
@@ -197,7 +200,7 @@ export default class SearchList extends Component {
       return (<View />)
     } else {
       return (
-        <View style={styles.sectionHeader}>
+        <View style={[styles.sectionHeader, { height: this.props.sectionHeaderHeight }]}>
           <Text style={styles.sectionTitle}>{sectionID}</Text>
         </View>
       )
@@ -213,9 +216,12 @@ export default class SearchList extends Component {
    */
   _renderSectionIndexItem(sectionData, sectionID) {
     return (
-      <Text style={{ color: this.props.sectionIndexTextColor, fontSize: 14, width: 36, height: 14 }}>
-        {sectionID}
-      </Text>
+      <View style={{ paddingBottom: 0 }}>
+        <Text style={{ color: this.props.sectionIndexTextColor, fontSize: 14, width: 20, height: 20 }}>
+          {sectionID}
+        </Text>
+      </View>
+
     )
   }
 
@@ -233,10 +239,10 @@ export default class SearchList extends Component {
     }
     return (
       <View key={'SEP_' + sectionID + '_' + rowID} style={style}>
-        <View style={{
-          height: 1 / PixelRatio.get(),
+        <View style={[{
+          height: this.props.separatorHeight,
           backgroundColor: '#efefef'
-        }} />
+        }]} />
       </View>
     )
   }
@@ -327,21 +333,22 @@ export default class SearchList extends Component {
       return
     }
     let y = this.props.headerHeight || 0
-
+    let separatorHeight = this.props.separatorHeight
     let rowHeight = this.props.rowHeight
     let sectionHeaderHeight = this.props.sectionHeaderHeight
     let index = this.sectionIDs.indexOf(section)
-
+    // console.log('rowHeight:' + rowHeight)
+    // console.log('sectionHeaderHeight:' + sectionHeaderHeight)
     let numcells = 0
     for (let i = 0; i < index && i < this.rowIds.length; i++) {
       numcells += this.rowIds[i].length
     }
-
+    // console.log('numcells:' + numcells)
     sectionHeaderHeight = index * sectionHeaderHeight
-    y += numcells * rowHeight + sectionHeaderHeight
-
+    // console.log('sectionHeaderHeight:' + sectionHeaderHeight)
+    y += numcells * rowHeight + sectionHeaderHeight + separatorHeight * numcells
+    // console.log('y:' + y)
     this.refs.searchListView.scrollTo({ x: 0, y: y, animated: false })
-
     this.props.onScrollToSection && this.props.onScrollToSection(section)
   }
 
@@ -564,7 +571,6 @@ const styles = StyleSheet.create({
     marginTop: 3,
     color: '#979797',
     fontSize: 14,
-    // backgroundColor: 'red',
   },
   separator2: {
     backgroundColor: 'rgba(0, 0, 0, 0.1)',

@@ -10,14 +10,14 @@ import {
 import PropTypes from 'prop-types'
 
 let returnTrue = () => true
-const itemHeight = 14
+const itemHeight = 20
 
 export default class SectionIndex extends Component {
   static propTypes = {
     renderSectionItem: PropTypes.func
   }
 
-  constructor (props, context) {
+  constructor(props, context) {
     super(props, context)
 
     this.onSectionSelect = this.onSectionSelect.bind(this)
@@ -26,7 +26,7 @@ export default class SectionIndex extends Component {
     this.lastSelectedIndex = null
   }
 
-  onSectionSelect (sectionId, fromTouch) {
+  onSectionSelect(sectionId, fromTouch) {
     this.props.onSectionSelect && this.props.onSectionSelect(sectionId)
 
     if (!fromTouch) {
@@ -34,24 +34,25 @@ export default class SectionIndex extends Component {
     }
   }
 
-  resetSection () {
+  resetSection() {
     this.lastSelectedIndex = null
   }
 
-  detectAndScrollToSection (e) {
+  detectAndScrollToSection(e) {
     let ev = e.nativeEvent
-
+    console.log(ev)
     if (this.props.sections && this.props.sections.length) {
       const index = Math.floor(ev.locationY / itemHeight)
       if (this.lastSelectedIndex !== index) {
         this.lastSelectedIndex = index
+        console.log(index)
         this.onSectionSelect(this.props.sections[index], true)
       }
     }
   }
 
-  render () {
-    const {renderSectionItem} = this.props
+  render() {
+    const { renderSectionItem } = this.props
     const sections = this.props.sections && this.props.sections.length > 0 ? this.props.sections.map((section, index) => {
       let title = this.props.getSectionListTitle ? this.props.getSectionListTitle(section) : section
 

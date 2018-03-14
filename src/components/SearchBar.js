@@ -16,7 +16,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Theme from './Theme'
 
-const {cancelButtonWidth: buttonWidth, searchBarHorizontalPadding, searchIconWidth} = Theme.size
+const { cancelButtonWidth: buttonWidth, searchBarHorizontalPadding, searchIconWidth } = Theme.size
 
 export default class SearchBar extends Component {
   static propTypes = {
@@ -55,7 +55,7 @@ export default class SearchBar extends Component {
     cancelTitle: 'Cancel'
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       value: props.value,
@@ -64,21 +64,21 @@ export default class SearchBar extends Component {
     }
   }
 
-  onChange (str) {
+  onChange(str) {
     this.props.onChange && this.props.onChange(str)
-    this.setState({str})
+    this.setState({ str })
   }
 
-  onBlur () {
+  onBlur() {
     this.props.onBlur && this.props.onBlur()
   }
 
-  onFocus () {
+  onFocus() {
     this.props.onFocus && this.props.onFocus()
     this.searchingAnimation(true)
   }
 
-  searchingAnimation (isSearching) {
+  searchingAnimation(isSearching) {
     let toVal = 0
 
     if (isSearching) {
@@ -93,18 +93,18 @@ export default class SearchBar extends Component {
       duration: Theme.duration.toggleSearchBar,
       toValue: toVal
     }).start(() => {
-      this.setState({isShowHolder: !isSearching})
+      this.setState({ isShowHolder: !isSearching })
     })
   }
 
-  cancelSearch () {
+  cancelSearch() {
     this.refs.input.clear()
     this.refs.input.blur()
     this.searchingAnimation(false)
     this.props.onClickCancel && this.props.onClickCancel()
   }
 
-  render () {
+  render() {
     return (
       <View
         style={[
@@ -200,7 +200,7 @@ export default class SearchBar extends Component {
               renderToHardwareTextureAndroid
             >
               <Text
-                style={{color: this.props.cancelTextColor}}
+                style={{ color: this.props.cancelTextColor }}
                 numberOfLines={1}>{this.props.cancelTitle}</Text>
             </View>
           </TouchableWithoutFeedback>
