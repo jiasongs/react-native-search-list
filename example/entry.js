@@ -19,7 +19,7 @@ import Touchable from '../src/utils/Touchable'
 
 const rowHeight = 40
 export default class example extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       dataSource: demoList
@@ -27,16 +27,17 @@ export default class example extends Component {
   }
 
   // custom render row
-  renderRow (item, sectionID, rowID, highlightRowFunc, isSearching) {
+  renderRow(item, sectionID, rowID, highlightRowFunc, isSearching) {
     return (
       <Touchable onPress={() => {
+        this.searchList.cancelSearch()
         Alert.alert('Clicked!', `sectionID: ${sectionID}; item: ${item.searchStr}`,
           [
-            {text: 'OK', onPress: () => console.log('OK Pressed')},
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
           ],
-          {cancelable: true})
+          { cancelable: true })
       }}>
-        <View key={rowID} style={{flex: 1, marginLeft: 20, height: rowHeight, justifyContent: 'center'}}>
+        <View key={rowID} style={{ flex: 1, marginLeft: 20, height: rowHeight, justifyContent: 'center' }}>
           {/*use `HighlightableText` to highlight the search result*/}
           <HighlightableText
             matcher={item.matcher}
@@ -50,55 +51,51 @@ export default class example extends Component {
   }
 
   // render empty view when datasource is empty
-  renderEmpty () {
+  renderEmpty() {
     return (
       <View style={styles.emptyDataSource}>
-        <Text style={{color: '#979797', fontSize: 18, paddingTop: 20}}> No Content </Text>
+        <Text style={{ color: '#979797', fontSize: 18, paddingTop: 20 }}> No Content </Text>
       </View>
     )
   }
 
   // render empty result view when search result is empty
-  renderEmptyResult (searchStr) {
+  renderEmptyResult(searchStr) {
     return (
       <View style={styles.emptySearchResult}>
-        <Text style={{color: '#979797', fontSize: 18, paddingTop: 20}}> No Result For <Text
-          style={{color: '#171a23', fontSize: 18}}>{searchStr}</Text></Text>
-        <Text style={{color: '#979797', fontSize: 18, alignItems: 'center', paddingTop: 10}}>Please search again</Text>
+        <Text style={{ color: '#979797', fontSize: 18, paddingTop: 20 }}> No Result For <Text
+          style={{ color: '#171a23', fontSize: 18 }}>{searchStr}</Text></Text>
+        <Text style={{ color: '#979797', fontSize: 18, alignItems: 'center', paddingTop: 10 }}>Please search again</Text>
       </View>
     )
   }
 
-  render () {
+  render() {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor='#F00' barStyle='light-content' />
         <SearchList
+          ref={v => this.searchList = v}
           data={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
           renderEmptyResult={this.renderEmptyResult.bind(this)}
           renderBackButton={() => null}
           renderEmpty={this.renderEmpty.bind(this)}
-
           rowHeight={rowHeight}
-
           toolbarBackgroundColor={'#2196f3'}
-          title='Search List Demo'
+          title='通讯录'
           cancelTitle='取消'
-          onClickBack={() => {}}
-
-          searchListBackgroundColor={'#2196f3'}
-
-          searchBarToggleDuration={300}
-
-          searchInputBackgroundColor={'#0069c0'}
-          searchInputBackgroundColorActive={'#6ec6ff'}
-          searchInputPlaceholderColor={'#FFF'}
-          searchInputTextColor={'#FFF'}
+          onClickBack={() => { }}
+          searchInputPlaceholder='搜索'
+          searchListBackgroundColor={'#efeff4'}
+          searchInputBackgroundColor={'#fff'}
+          searchInputBackgroundColorActive={'#fff'}
+          searchInputPlaceholderColor={'#cdcdcd'}
+          searchInputTextColor={'black'}
           searchInputTextColorActive={'#000'}
-          searchInputPlaceholder='Search'
-          sectionIndexTextColor={'#6ec6ff'}
-          searchBarBackgroundColor={'#2196f3'}
+          sectionIndexTextColor={'#99999a'}
+          searchBarBackgroundColor={'#efeff4'}
+          cancelTextColor={'#cdcdcd'}
         />
       </View>
     )

@@ -21,7 +21,9 @@ The following pic may be helpful when understanding the structure and APIs:
 
 ## Installation
 
-`$ npm install @unpourtous/react-native-search-list --save`
+在`package.json`里加上：
+`"@unpourtous/react-native-search-list": "git+https://github.com/jiasongs/react-native-search-list.git"`
+然后`npm install`
 
 ## Usage
 
@@ -40,6 +42,7 @@ export default class example extends Component {
   renderRow (item, sectionID, rowID, highlightRowFunc, isSearching) {
     return (
       <Touchable onPress={() => {
+        this.searchList.cancelSearch()
         Alert.alert('Clicked!', `sectionID: ${sectionID}; item: ${item.searchStr}`,
           [
             {text: 'OK', onPress: () => console.log('OK Pressed')},
@@ -84,31 +87,27 @@ export default class example extends Component {
       <View style={styles.container}>
         <StatusBar backgroundColor='#F00' barStyle='light-content' />
         <SearchList
+          ref={v => this.searchList = v}
           data={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
           renderEmptyResult={this.renderEmptyResult.bind(this)}
           renderBackButton={() => null}
           renderEmpty={this.renderEmpty.bind(this)}
-
           rowHeight={rowHeight}
-
           toolbarBackgroundColor={'#2196f3'}
-          title='Search List Demo'
+          title='通讯录'
           cancelTitle='取消'
-          onClickBack={() => {}}
-
-          searchListBackgroundColor={'#2196f3'}
-
-          searchBarToggleDuration={300}
-
-          searchInputBackgroundColor={'#0069c0'}
-          searchInputBackgroundColorActive={'#6ec6ff'}
-          searchInputPlaceholderColor={'#FFF'}
-          searchInputTextColor={'#FFF'}
+          onClickBack={() => { }}
+          searchInputPlaceholder='搜索'
+          searchListBackgroundColor={'#efeff4'}
+          searchInputBackgroundColor={'#fff'}
+          searchInputBackgroundColorActive={'#fff'}
+          searchInputPlaceholderColor={'#cdcdcd'}
+          searchInputTextColor={'black'}
           searchInputTextColorActive={'#000'}
-          searchInputPlaceholder='Search'
-          sectionIndexTextColor={'#6ec6ff'}
-          searchBarBackgroundColor={'#2196f3'}
+          sectionIndexTextColor={'#99999a'}
+          searchBarBackgroundColor={'#efeff4'}
+          cancelTextColor={'#cdcdcd'}
         />
       </View>
     )
