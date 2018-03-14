@@ -40,12 +40,12 @@ export default class SectionIndex extends Component {
 
   detectAndScrollToSection(e) {
     let ev = e.nativeEvent
-    console.log(ev)
+    // console.log(ev)
     if (this.props.sections && this.props.sections.length) {
       const index = Math.floor(ev.locationY / itemHeight)
       if (this.lastSelectedIndex !== index) {
         this.lastSelectedIndex = index
-        console.log(index)
+        // console.log(index)
         this.onSectionSelect(this.props.sections[index], true)
       }
     }

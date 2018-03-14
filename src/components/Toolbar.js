@@ -26,8 +26,8 @@ export default class Toolbar extends Component {
     textColor: 'white'
   }
 
-  render () {
-    const {style} = this.props
+  render() {
+    const { style } = this.props
     return (
       <Animated.View
         style={[styles.container, style]}
@@ -40,8 +40,8 @@ export default class Toolbar extends Component {
     )
   }
 
-  _renderBackButton () {
-    const {renderBackButton} = this.props
+  _renderBackButton() {
+    const { renderBackButton } = this.props
     if (renderBackButton) {
       return renderBackButton()
     }
@@ -49,8 +49,8 @@ export default class Toolbar extends Component {
     return null
   }
 
-  _renderTitle () {
-    const {renderTitle, title, textColor} = this.props
+  _renderTitle() {
+    const { renderTitle, title, textColor } = this.props
     if (renderTitle) {
       return renderTitle()
     } else {
@@ -68,8 +68,8 @@ export default class Toolbar extends Component {
     }
   }
 
-  _renderRightButton () {
-    const {renderRightButton} = this.props
+  _renderRightButton() {
+    const { renderRightButton } = this.props
     if (renderRightButton) {
       return renderRightButton()
     }

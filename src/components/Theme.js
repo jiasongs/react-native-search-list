@@ -4,7 +4,8 @@
 import {
   Dimensions,
   Platform,
-  StatusBar
+  StatusBar,
+  PixelRatio
 } from 'react-native'
 
 const statusBarHeight = Platform.select({
@@ -24,6 +25,7 @@ export default {
     maskColor: 'rgba(0, 0, 0, 0.1)'
   },
   size: {
+    separatorHeight: 1 / PixelRatio.get(),
     sectionHeaderHeight: 24,
     rowHeight: 40,
 
