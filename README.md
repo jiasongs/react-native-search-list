@@ -22,7 +22,7 @@ The following pic may be helpful when understanding the structure and APIs:
 ## Installation
 
 在`package.json`里加上：
-`"@unpourtous/react-native-search-list": "git+https://github.com/jiasongs/react-native-search-list.git"`
+`"react-native-search-list": "git+https://github.com/jiasongs/react-native-search-list.git"`,
 然后`npm install`
 
 ## Usage
